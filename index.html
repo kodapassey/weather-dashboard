@@ -15,7 +15,36 @@
 
 <body>
 
+    <header class="navbar-text w-100 d-flex justify-content-center">Weather Dashboard</header>
 
+    <section class="row">
+        <!-- section with main search form -->
+        <form id="searchForm" class="col-3 main-form ml-3">
+            <h2 class="mb-0 mt-3 mr-3">Search For a City:</h2>
+            <input id="searchFormInput" class="mb-3 mr-3 mt-2 w-100" type="text" placeholder="Enter A City Here">
+            <button id="search-btn" class="btn btn-primary d-block w-100 mt-0 mr-3 mb-4">Search</button>
+        </form>
+
+        <!-- current day section -->
+        <section id="currentCity" class="current-day col-8">
+            <h1 id="cityName"></h1>
+        </section>
+
+    </section>
+
+    <h2 class="mt-2 section-header">5 Day Forecast</h2>
+
+
+    <section class="row five-day">
+
+        <div id="dayOne" class="mr-3 mt-3 mb-3"></div>
+        <div id="dayTwo" class="mr-3 mt-3 mb-3"></div>
+        <div id="dayThree" class="mr-3 mt-3 mb-3"></div>
+        <div id="dayFour" class="mr-3 mt-3 mb-3"></div>
+        <div id="dayFive" class="mt-3 mb-3"></div>
+
+
+    </section>
 
 
     <!-- jquery -->
