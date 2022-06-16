@@ -3,6 +3,7 @@ var searchFormInput = document.querySelector('#searchFormInput');
 var currentCity = document.querySelector('#currentCity');
 var fiveDay = document.querySelector('.five-day');
 
+// function for getting current city
 var getCity = function (city) {
 
     var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6fcd46ca0bc9014cd6e642c6441a435a&units=imperial`;
@@ -12,27 +13,27 @@ var getCity = function (city) {
 
             console.log(data);
 
+            // creates h1 element for current city's name
             var cityName = document.createElement('h1');
             cityName.innerText = (data.name);
             cityName.classList = ('date-time');
 
-            // var icon = document.createElement('span');
-            // icon.innerHTML = src = (`http://openweathermap.org/img/${data.weather.icon}.png`);
-            // icon.classList = 'test'
-            // // ${data.weather.icon}
-
+            // creates h2 element for the current date
             var date = document.createElement('h2');
             date.innerText = moment().format('ddd MMM Do, YYYY');
             date.classList = ('date-time-Main');
 
+            // shows user current temp for city they search for
             var temp = document.createElement('p');
             temp.innerText = 'Temp: ' + (data.main.temp) + 'deg';
             temp.classList = ('weather-conditions');
 
+            // shows user current wind speed for city they search for
             var wind = document.createElement('p');
             wind.innerText = 'Wind: ' + (data.wind.speed) + 'mph';
             wind.classList = ('weather-conditions');
 
+            // shows user current humidity for city they search for
             var humidity = document.createElement('p');
             humidity.innerText = 'Humidity: ' + (data.main.humidity);
             humidity.classList = ('weather-conditions');
@@ -45,6 +46,8 @@ var getCity = function (city) {
 
             fetch(apiUrl2).then(function (response) {
                 response.json().then(function (data) {
+
+                    // shows user current UVI for city they search for
                     var uvi = document.createElement('p');
                     uvi.innerText = 'UV Index: ' + (data.current.uvi);
                     uvi.classList = ('weather-conditions');
@@ -59,6 +62,7 @@ var getCity = function (city) {
 };
 
 
+// function for getting 5 day forecast
 var fiveDayForecast = function (x) {
 
     for (var i = 0; i < 5; i++) {
