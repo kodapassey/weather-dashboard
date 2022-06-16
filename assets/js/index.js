@@ -13,24 +13,29 @@ var getCity = function (city) {
             console.log(data);
 
             var cityName = document.createElement('h1');
-            cityName.innerText = (JSON.stringify(data.name));
-            cityName.classList = ('');
+            cityName.innerText = (data.name);
+            cityName.classList = ('date-time');
+
+            // var icon = document.createElement('span');
+            // icon.innerHTML = src = (`http://openweathermap.org/img/${data.weather.icon}.png`);
+            // icon.classList = 'test'
+            // // ${data.weather.icon}
 
             var date = document.createElement('h2');
             date.innerText = moment().format('ddd MMM Do, YYYY');
-            date.classList = ('');
+            date.classList = ('date-time-Main');
 
             var temp = document.createElement('p');
-            temp.innerText = 'Temp: ' + (JSON.stringify(data.main.temp)) + 'deg';
-            temp.classList = ('');
+            temp.innerText = 'Temp: ' + (data.main.temp) + 'deg';
+            temp.classList = ('weather-conditions');
 
             var wind = document.createElement('p');
-            wind.innerText = 'Wind: ' + (JSON.stringify(data.wind.speed)) + 'mph';
-            wind.classList = ('');
+            wind.innerText = 'Wind: ' + (data.wind.speed) + 'mph';
+            wind.classList = ('weather-conditions');
 
             var humidity = document.createElement('p');
-            humidity.innerText = 'Humidity: ' + (JSON.stringify(data.main.humidity));
-            humidity.classList = ('');
+            humidity.innerText = 'Humidity: ' + (data.main.humidity);
+            humidity.classList = ('weather-conditions');
 
 
             var lat = data.coord.lat;
@@ -41,8 +46,8 @@ var getCity = function (city) {
             fetch(apiUrl2).then(function (response) {
                 response.json().then(function (data) {
                     var uvi = document.createElement('p');
-                    uvi.innerText = 'UV Index: ' + (JSON.stringify(data.current.uvi));
-                    uvi.classList = ('');
+                    uvi.innerText = 'UV Index: ' + (data.current.uvi);
+                    uvi.classList = ('weather-conditions');
 
                     currentCity.append(cityName, date, temp, wind, humidity, uvi);
 
@@ -54,9 +59,7 @@ var getCity = function (city) {
 };
 
 
-var fiveDayForecast = function (x, dateFrom) {
-
-    var dates = [];
+var fiveDayForecast = function (x) {
 
     for (var i = 0; i < 5; i++) {
         console.log(x[i]);
@@ -65,29 +68,25 @@ var fiveDayForecast = function (x, dateFrom) {
 
         currentDay.innerText = '';
 
-        // var date = document.createElement('h2');
-        // date.innerText = moment().add({ days: 1 });
-        // date.classList = ('');
-
-        var date = moment(dateFrom);
-        dates.push({ date: date.add(i + 1, "days").format("ddd MMM Do, YYYY") });
-
+        var date = document.createElement('h2');
+        date.innerText = moment().add(i + 1, 'days').format('ddd MMM Do, YYYY');
+        date.classList = ('date-time-5Day');
 
         var temp = document.createElement('p');
         temp.innerText = 'Temp: ' + (JSON.stringify(x[i].temp.day)) + 'deg';
-        temp.classList = ('');
+        temp.classList = ('weather-conditions');
 
         var wind = document.createElement('p');
         wind.innerText = 'Wind: ' + (JSON.stringify(x[i].wind_speed)) + 'mph';
-        wind.classList = ('');
+        wind.classList = ('weather-conditions');
 
         var humidity = document.createElement('p');
         humidity.innerText = 'Humidity: ' + (JSON.stringify(x[i].humidity));
-        humidity.classList = ('');
+        humidity.classList = ('weather-conditions');
 
         var uvi = document.createElement('p');
         uvi.innerText = 'UV Index: ' + (JSON.stringify(x[i].uvi));
-        uvi.classList = ('');
+        uvi.classList = ('weather-conditions');
 
         currentDay.append(date, temp, wind, humidity, uvi);
 
@@ -110,4 +109,11 @@ var searchCity = function (event) {
     console.log(event);
 };
 
-searchForm.addEventListener('submit', searchCity);
+var saveCities = function () {
+    localStorage.setItem('getCity', JSON.stringify(getCity()));
+    // create button El when user searches for city
+    // on click do localstorage.getItem/run function
+    localStorage.setItem('fiveDayForecast', JSON.stringify(fiveDayForecast()));
+}
+
+searchForm.addEventListener('submit', searchCity, saveCities);
